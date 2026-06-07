@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class TextBoxTests {
@@ -21,13 +22,13 @@ public class TextBoxTests {
         $("[id=firstName]").setValue("Елена");
         $("[id=lastName]").setValue("Полякова");
         $("[id=userEmail]").setValue("elena@yandex.ru");
-        $("[id=genterWrapper]").$$("label").findBy(text("Female")).click();
+        $("[id=genterWrapper]").$(byText("Female")).click();
         $("[id=userNumber]").setValue("9162223344");
         $("[id=dateOfBirthInput]").click();
         $(".react-datepicker__month-select").selectOption("May");
         $(".react-datepicker__year-select").selectOption("1999");
         $(".react-datepicker__day.react-datepicker__day--020").click();
-        $("[id=hobbies-checkbox-3]").click();
+        $("#hobbiesWrapper").$(byText("Music")).click();
         $("[id=uploadPicture]").uploadFromClasspath("picture.jpg");
         $("[id=currentAddress]").setValue("My address");
         $("[id='react-select-3-input']").setValue("NCR").pressEnter();
@@ -53,7 +54,7 @@ public class TextBoxTests {
         open("/automation-practice-form");
         $("[id=firstName]").setValue("Елена");
         $("[id=lastName]").setValue("Полякова");
-        $("[id=genterWrapper]").$$("label").findBy(text("Female")).click();
+        $("[id=genterWrapper]").$(byText("Female")).click();
         $("[id=userNumber]").setValue("9162223344");
         $("[id=submit]").click();
         $(".modal-content").shouldBe(visible);
@@ -69,7 +70,7 @@ public class TextBoxTests {
         $("[id=firstName]").setValue("Елена");
         $("[id=lastName]").setValue("Полякова");
         $("[id=userEmail]").setValue("ele");
-        $("[id=genterWrapper]").$$("label").findBy(text("Female")).click();
+        $("[id=genterWrapper]").$(byText("Female")).click();
         $("[id=userNumber]").setValue("9162223344");
         $("[id=dateOfBirthInput]").click();
         $(".react-datepicker__month-select").selectOption("May");
@@ -107,7 +108,7 @@ public class TextBoxTests {
         open("/automation-practice-form");
         $("[id=firstName]").setValue("Елена");
         $("[id=lastName]").setValue("Полякова");
-        $("[id=gender-radio-2]").click();
+        $("[id=genterWrapper]").$(byText("Female")).click();
         $("[id=userNumber]").setValue("");
         $("[id=submit]").click();
         $(".modal-content").shouldNotBe(visible);
