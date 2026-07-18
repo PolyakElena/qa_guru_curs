@@ -35,6 +35,7 @@ public class TextBoxTests {
         $(".react-datepicker__month-select").selectOption(month);
         $(".react-datepicker__year-select").selectOption(year);
         $(String.format(".react-datepicker__day--0%s", day)).click();
+        $("[id=subjectsInput]").setValue(subject).pressEnter();
         $("#hobbiesWrapper").$(byText(hobby)).click();
         $("[id=uploadPicture]").uploadFromClasspath("picture.jpg");
         $("[id=currentAddress]").setValue(currentAddress);
@@ -47,7 +48,7 @@ public class TextBoxTests {
         $(".table-responsive").shouldHave(text(userEmail));
         $(".table-responsive").shouldHave(text(genter));
         $(".table-responsive").shouldHave(text(userNumber));
-        $(".table-responsive").shouldHave(text("Subjects"));
+        $(".table-responsive").shouldHave(text(subject));
         $(".table-responsive").shouldHave(text(hobby));
         $(".table-responsive").shouldHave(text(data));
         $(".table-responsive").shouldHave(text(currentAddress));

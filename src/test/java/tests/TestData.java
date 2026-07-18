@@ -8,10 +8,11 @@ public class TestData {
     public static String genter = "Female";
     public static String hobby = "Music";
     public static String currentAddress = "My address";
-    public static String day = "020";
+    public static String day = "20";
     public static String month = "May";
     public static String year = "1999";
     public static String data = "20 May,1999";
+    public static String subject = "English";
     public static String shtat = "NCR";
     public static String city = "Delhi";
     public static String cityAndShtat = "NCR Delhi";
