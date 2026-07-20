@@ -4,9 +4,8 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import pages.RegistrationPage;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static tests.TestData.*;
 
@@ -25,98 +24,107 @@ public class TextBoxTests {
 
     @Test
     void successfulFillFormTest() {
-        open("/automation-practice-form");
-        $("[id=firstName]").setValue(firstName);
-        $("[id=lastName]").setValue(lastName);
-        $("[id=userEmail]").setValue(userEmail);
-        $("[id=genterWrapper]").$(byText(genter)).click();
-        $("[id=userNumber]").setValue(userNumber);
-        $("[id=dateOfBirthInput]").click();
-        $(".react-datepicker__month-select").selectOption(month);
-        $(".react-datepicker__year-select").selectOption(year);
-        $(String.format(".react-datepicker__day--0%s", day)).click();
-        $("[id=subjectsInput]").setValue(subject).pressEnter();
-        $("#hobbiesWrapper").$(byText(hobby)).click();
-        $("[id=uploadPicture]").uploadFromClasspath("picture.jpg");
-        $("[id=currentAddress]").setValue(currentAddress);
-        $("[id='react-select-3-input']").setValue(shtat).pressEnter();
-        $("[id='react-select-4-input']").setValue(city).pressEnter();
-        $("#submit").click();
+        RegistrationPage registrationPage = new RegistrationPage()
+                .openPage()
+                .typeFirstName(firstName)
+                .typeLastName(lastName)
+                .typeUserEmail(userEmail)
+                .setGender(genter)
+                .typeUserNumber(userNumber)
+                .setDateOfBirth(day, month, year)
+                .typeSubjects(subject)
+                .setHobby(hobby)
+                .uploadPicture(picture)
+                .typeAddress(currentAddress)
+                .setStateAndCity(state, city)
+                .submitClick()
 
-        $(".modal-content").shouldBe(visible);
-        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text(firstName + " " + lastName));
-        $(".table-responsive").shouldHave(text(userEmail));
-        $(".table-responsive").shouldHave(text(genter));
-        $(".table-responsive").shouldHave(text(userNumber));
-        $(".table-responsive").shouldHave(text(subject));
-        $(".table-responsive").shouldHave(text(hobby));
-        $(".table-responsive").shouldHave(text(data));
-        $(".table-responsive").shouldHave(text(currentAddress));
-        $(".table-responsive").shouldHave(text(cityAndShtat));
+                .checkModalWindow()
+                .checkResult("Student Name", firstName + " " + lastName)
+                .checkResult("Student Email", userEmail)
+                .checkResult("Gender", genter)
+                .checkResult("Mobile", userNumber)
+                .checkResult("Date of Birth", data)
+                .checkResult("Subjects", subject)
+                .checkResult("Hobbies", hobby)
+                .checkResult("Picture", picture)
+                .checkResult("Address", currentAddress)
+                .checkResult("State and City", state + " " + city);
+
     }
 
     @Test
-    void successfullCompletedWithOnlyRequiredFieldTest() {
-        open("/automation-practice-form");
-        $("[id=firstName]").setValue(firstName);
-        $("[id=lastName]").setValue(lastName);
-        $("[id=genterWrapper]").$(byText(genter)).click();
-        $("[id=userNumber]").setValue(userNumber);
-        $("[id=submit]").click();
+    void successFullCompletedWithOnlyRequiredFieldTest() {
 
-        $(".modal-content").shouldBe(visible);
-        $(".table-responsive").shouldHave(text(firstName + " " + lastName));
-        $(".table-responsive").shouldHave(text(genter));
-        $(".table-responsive").shouldHave(text(userNumber));
+        RegistrationPage registrationPage = new RegistrationPage()
+                .openPage()
+                .typeFirstName(firstName)
+                .typeLastName(lastName)
+                .setGender(genter)
+                .typeUserNumber(userNumber)
+                .submitClick()
+
+                .checkModalWindow()
+                .checkResult("Student Name", firstName + " " + lastName)
+                .checkResult("Gender", genter)
+                .checkResult("Mobile", userNumber);
+
     }
 
     @Test
     void shortEmailTest() {
-        open("/automation-practice-form");
-        $("[id=firstName]").setValue(firstName);
-        $("[id=lastName]").setValue(lastName);
-        $("[id=userEmail]").setValue(shortEmail);
-        $("[id=genterWrapper]").$(byText(genter)).click();
-        $("[id=userNumber]").setValue(userNumber);
-        $("[id=dateOfBirthInput]").click();
-        $(".react-datepicker__month-select").selectOption(month);
-        $(".react-datepicker__year-select").selectOption(year);
-        $(String.format(".react-datepicker__day--0%s", day)).click();
-        $("#submit").click();
+        RegistrationPage registrationPage = new RegistrationPage()
+                .openPage()
+                .typeFirstName(firstName)
+                .typeLastName(lastName)
+                .typeUserEmail(shortEmail)
+                .setGender(genter)
+                .typeUserNumber(userNumber)
+                .setDateOfBirth(day, month, year)
+                .submitClick()
 
-        $("[id=userEmail]").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+                .checkNotModalWindow()
+                .checkUserEmailBorderColor();
+
+
     }
 
     @Test
     void wrongEmailTest() {
-        open("/automation-practice-form");
-        $("[id=userEmail]").setValue(wrongEmail);
-        $("[id=submit]").click();
+        RegistrationPage registrationPage = new RegistrationPage()
+                .openPage()
+                .typeUserEmail(wrongEmail)
+                .submitClick()
 
-        $(".modal-content").shouldNotBe(visible);
-        $("[id=userEmail]").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+                .checkNotModalWindow()
+                .checkUserEmailBorderColor();
+
     }
 
     @Test
     void wrongNumberTest() {
-        open("/automation-practice-form");
-        $("[id=userNumber]").setValue(wrongNumber);
-        $("[id=submit]").click();
+        RegistrationPage registrationPage = new RegistrationPage()
+                .openPage()
+                .typeUserNumber(wrongNumber)
+                .submitClick()
 
-        $(".modal-content").shouldNotBe(visible);
-        $("[id=userNumber]").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+                .checkNotModalWindow()
+                .checkUserNumberBorderColor();
+
     }
 
     @Test
     void emptyNumberTest() {
-        open("/automation-practice-form");
-        $("[id=firstName]").setValue(firstName);
-        $("[id=lastName]").setValue(lastName);
-        $("[id=genterWrapper]").$(byText(genter)).click();
-        $("[id=userNumber]").setValue(emptyNumber);
-        $("[id=submit]").click();
+        RegistrationPage registrationPage = new RegistrationPage()
+                .openPage()
+                .typeFirstName(firstName)
+                .typeLastName(lastName)
+                .setGender(genter)
+                .typeUserNumber(emptyNumber)
+                .submitClick()
 
-        $(".modal-content").shouldNotBe(visible);
-        $("[id=userNumber]").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+                .checkNotModalWindow()
+                .checkUserNumberBorderColor();
+
     }
 }

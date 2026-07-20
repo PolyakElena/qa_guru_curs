@@ -13,9 +13,9 @@ public class TestData {
     public static String year = "1999";
     public static String data = "20 May,1999";
     public static String subject = "English";
-    public static String shtat = "NCR";
+    public static String state = "NCR";
     public static String city = "Delhi";
-    public static String cityAndShtat = "NCR Delhi";
+    public static String picture = "picture.jpg";
 
     public static String wrongEmail = "Елена@yandex.ru";
     public static String shortEmail = "ele";
