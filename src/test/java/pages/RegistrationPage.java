@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
+import pages.components.CheckResultTableComponent;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
@@ -10,23 +11,23 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
     CalendarComponent calendar = new CalendarComponent();
+    CheckResultTableComponent checkResultTableComponent = new CheckResultTableComponent();
 
-    private SelenideElement firstNameInput = $("#firstName");
-    private SelenideElement lastNameInput = $("#lastName");
-    private SelenideElement userEmailInput = $("#userEmail");
-    private SelenideElement genderContainer = $("#genterWrapper");
-    private SelenideElement userNumberInput = $("#userNumber");
-    private SelenideElement subjectsInput = $("#subjectsInput");
-    private SelenideElement genderHobbyContainer = $("#hobbiesWrapper");
-    private SelenideElement uploadPicture = $("#uploadPicture");
-    private SelenideElement addressInput = $("#currentAddress");
-    private SelenideElement stateSelect = $("#state");
-    private SelenideElement citySelect = $("#city");
-    private SelenideElement stateCityContainer = $("#stateCity-wrapper");
-    private SelenideElement stateStateContainer = $("#stateCity-wrapper");
-    private SelenideElement submitButton = $("#submit");
-    private SelenideElement modalWindow = $(".modal-content");
-    private final SelenideElement table = $(".table-responsive");
+    private final SelenideElement firstNameInput = $("#firstName");
+    private final SelenideElement lastNameInput = $("#lastName");
+    private final SelenideElement userEmailInput = $("#userEmail");
+    private final SelenideElement genderContainer = $("#genterWrapper");
+    private final SelenideElement userNumberInput = $("#userNumber");
+    private final SelenideElement subjectsInput = $("#subjectsInput");
+    private final SelenideElement genderHobbyContainer = $("#hobbiesWrapper");
+    private final SelenideElement uploadPicture = $("#uploadPicture");
+    private final SelenideElement addressInput = $("#currentAddress");
+    private final SelenideElement stateSelect = $("#state");
+    private final SelenideElement citySelect = $("#city");
+    private final SelenideElement stateCityContainer = $("#stateCity-wrapper");
+    private final SelenideElement stateStateContainer = $("#stateCity-wrapper");
+    private final SelenideElement submitButton = $("#submit");
+    private final SelenideElement modalWindow = $(".modal-content");
 
 
     public RegistrationPage openPage() {
@@ -138,9 +139,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage checkResult(String key, String value) {
-        table.$(byText(key))
-                .parent()
-                .shouldHave(text(value));
+        checkResultTableComponent.checkResult(key, value);
 
         return this;
     }

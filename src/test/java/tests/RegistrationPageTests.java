@@ -1,30 +1,17 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
-import static com.codeborne.selenide.Selenide.*;
 import static tests.TestData.*;
 
-public class TextBoxTests {
-    @BeforeAll
-    static void setUp() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
-    }
-
-    @AfterEach
-    void teardown() {
-        closeWebDriver();
-    }
+public class RegistrationPageTests extends TestBase {
+    RegistrationPage registrationPage = new RegistrationPage();
 
 
     @Test
     void successfulFillFormTest() {
-        RegistrationPage registrationPage = new RegistrationPage()
+        registrationPage
                 .openPage()
                 .typeFirstName(firstName)
                 .typeLastName(lastName)
@@ -55,8 +42,7 @@ public class TextBoxTests {
 
     @Test
     void successFullCompletedWithOnlyRequiredFieldTest() {
-
-        RegistrationPage registrationPage = new RegistrationPage()
+        registrationPage
                 .openPage()
                 .typeFirstName(firstName)
                 .typeLastName(lastName)
@@ -73,7 +59,7 @@ public class TextBoxTests {
 
     @Test
     void shortEmailTest() {
-        RegistrationPage registrationPage = new RegistrationPage()
+        registrationPage
                 .openPage()
                 .typeFirstName(firstName)
                 .typeLastName(lastName)
@@ -91,7 +77,7 @@ public class TextBoxTests {
 
     @Test
     void wrongEmailTest() {
-        RegistrationPage registrationPage = new RegistrationPage()
+        registrationPage
                 .openPage()
                 .typeUserEmail(wrongEmail)
                 .submitClick()
@@ -103,7 +89,7 @@ public class TextBoxTests {
 
     @Test
     void wrongNumberTest() {
-        RegistrationPage registrationPage = new RegistrationPage()
+        registrationPage
                 .openPage()
                 .typeUserNumber(wrongNumber)
                 .submitClick()
@@ -115,7 +101,7 @@ public class TextBoxTests {
 
     @Test
     void emptyNumberTest() {
-        RegistrationPage registrationPage = new RegistrationPage()
+        registrationPage
                 .openPage()
                 .typeFirstName(firstName)
                 .typeLastName(lastName)
