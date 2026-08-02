@@ -3,70 +3,71 @@ package tests;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
-import static tests.TestData.*;
-
 public class RegistrationPageTests extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
 
 
     @Test
     void successfulFillFormTest() {
+        TestData testData = new TestData();
         registrationPage
                 .openPage()
-                .typeFirstName(firstName)
-                .typeLastName(lastName)
-                .typeUserEmail(userEmail)
-                .setGender(genter)
-                .typeUserNumber(userNumber)
-                .setDateOfBirth(day, month, year)
-                .typeSubjects(subject)
-                .setHobby(hobby)
-                .uploadPicture(picture)
-                .typeAddress(currentAddress)
-                .setStateAndCity(state, city)
+                .typeFirstName(testData.firstName)
+                .typeLastName(testData.lastName)
+                .typeUserEmail(testData.userEmail)
+                .setGender(testData.genter)
+                .typeUserNumber(testData.userNumber)
+                .setDateOfBirth(testData.day, testData.month, testData.year)
+                .typeSubjects(testData.subject)
+                .setHobby(testData.hobby)
+                .uploadPicture(testData.picture)
+                .typeAddress(testData.currentAddress)
+                .setStateAndCity(testData.state, testData.city)
                 .submitClick()
 
                 .checkModalWindow()
-                .checkResult("Student Name", firstName + " " + lastName)
-                .checkResult("Student Email", userEmail)
-                .checkResult("Gender", genter)
-                .checkResult("Mobile", userNumber)
-                .checkResult("Date of Birth", data)
-                .checkResult("Subjects", subject)
-                .checkResult("Hobbies", hobby)
-                .checkResult("Picture", picture)
-                .checkResult("Address", currentAddress)
-                .checkResult("State and City", state + " " + city);
+                .checkResult("Student Name", testData.firstName + " " + testData.lastName)
+                .checkResult("Student Email", testData.userEmail)
+                .checkResult("Gender", testData.genter)
+                .checkResult("Mobile", testData.userNumber)
+                .checkResult("Date of Birth", testData.data)
+                .checkResult("Subjects", testData.subject)
+                .checkResult("Hobbies", testData.hobby)
+                .checkResult("Picture", testData.picture)
+                .checkResult("Address", testData.currentAddress)
+                .checkResult("State and City", testData.state + " " + testData.city);
 
     }
 
     @Test
     void successFullCompletedWithOnlyRequiredFieldTest() {
+        TestData testData = new TestData();
         registrationPage
                 .openPage()
-                .typeFirstName(firstName)
-                .typeLastName(lastName)
-                .setGender(genter)
-                .typeUserNumber(userNumber)
+                .typeFirstName(testData.firstName)
+                .typeLastName(testData.lastName)
+                .setGender(testData.genter)
+                .typeUserNumber(testData.userNumber)
                 .submitClick()
 
                 .checkModalWindow()
-                .checkResult("Student Name", firstName + " " + lastName)
-                .checkResult("Gender", genter)
-                .checkResult("Mobile", userNumber);
+                .checkResult("Student Name", testData.firstName + " " + testData.lastName)
+                .checkResult("Gender", testData.genter)
+                .checkResult("Mobile", testData.userNumber);
 
     }
 
     @Test
     void shortEmailTest() {
+        TestData testData = new TestData();
         registrationPage
                 .openPage()
-                .typeFirstName(firstName)
-                .typeLastName(lastName)
-                .typeUserEmail(shortEmail)
-                .setGender(genter)
-                .typeUserNumber(userNumber)
-                .setDateOfBirth(day, month, year)
+                .typeFirstName(testData.firstName)
+                .typeLastName(testData.lastName)
+                .typeUserEmail(testData.shortEmail)
+                .setGender(testData.genter)
+                .typeUserNumber(testData.userNumber)
+                .setDateOfBirth(testData.day, testData.month, testData.year)
                 .submitClick()
 
                 .checkNotModalWindow()
@@ -77,9 +78,10 @@ public class RegistrationPageTests extends TestBase {
 
     @Test
     void wrongEmailTest() {
+        TestData testData = new TestData();
         registrationPage
                 .openPage()
-                .typeUserEmail(wrongEmail)
+                .typeUserEmail(testData.wrongEmail)
                 .submitClick()
 
                 .checkNotModalWindow()
@@ -89,9 +91,10 @@ public class RegistrationPageTests extends TestBase {
 
     @Test
     void wrongNumberTest() {
+        TestData testData = new TestData();
         registrationPage
                 .openPage()
-                .typeUserNumber(wrongNumber)
+                .typeUserNumber(testData.wrongNumber)
                 .submitClick()
 
                 .checkNotModalWindow()
@@ -101,12 +104,13 @@ public class RegistrationPageTests extends TestBase {
 
     @Test
     void emptyNumberTest() {
+        TestData testData = new TestData();
         registrationPage
                 .openPage()
-                .typeFirstName(firstName)
-                .typeLastName(lastName)
-                .setGender(genter)
-                .typeUserNumber(emptyNumber)
+                .typeFirstName(testData.firstName)
+                .typeLastName(testData.lastName)
+                .setGender(testData.genter)
+                .typeUserNumber(testData.emptyNumber)
                 .submitClick()
 
                 .checkNotModalWindow()
