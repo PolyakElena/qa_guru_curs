@@ -18,7 +18,7 @@ public class TestData {
     public String genter = getRandomGender();
     public String hobby = getRandomHobby();
     public String currentAddress = fakerRu.address().fullAddress();
-    public String day = String.valueOf(getRandomInt(1, 30));
+    public String day = String.valueOf(getRandomInt(1, 28));
     public String month = getRandomMonth();
     public String year = String.valueOf(getRandomInt(1900, 2026));
     public String data = String.format("%s %s,%s", day, month, year);
